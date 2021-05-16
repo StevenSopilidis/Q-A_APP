@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "de6IQrjgin7QZBP3NEMlTD3H78z1jr/onZLKm6Zn3F6Hk+4QNTt85gwOBtOVAch+QnvS1JflxcIa34l8ix4Ttg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\Backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\sopil\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\sopil\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\sopil\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
+    "C:\\Users\\sopil\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",
+    "C:\\Users\\sopil\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\5.6.3\\swashbuckle.aspnetcore.swaggergen.5.6.3.nupkg.sha512",
+    "C:\\Users\\sopil\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\5.6.3\\swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512"
+  ],
+  "logs": []
+}
