@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\Backend.csproj": {}
+    "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\Backend.csproj": {
+    "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\Backend.csproj",
+        "projectUniqueName": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend.csproj",
         "projectName": "Backend",
-        "projectPath": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\Backend.csproj",
+        "projectPath": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend.csproj",
         "packagesPath": "C:\\Users\\sopil\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\Backend\\obj\\",
+        "outputPath": "C:\\Users\\sopil\\Desktop\\Q_A_App\\Backend\\Backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\sopil\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,9 +40,25 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "Dapper": {
+              "target": "Package",
+              "version": "[2.0.90, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[5.0.7, )"
+            },
+            "Microsoft.Data.SqlClient": {
+              "target": "Package",
+              "version": "[2.1.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[5.6.3, )"
+            },
+            "dbup": {
+              "target": "Package",
+              "version": "[4.5.0, )"
             }
           },
           "imports": [

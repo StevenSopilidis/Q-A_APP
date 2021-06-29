@@ -1,16 +1,16 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using DbUp;
+using Backend.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
+using Backend.Authorization;
 
 namespace Backend
 {
@@ -26,11 +26,57 @@ namespace Backend
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            EnsureDatabase.For.SqlDatabase(connectionString);
+
+            var upgraded = DeployChanges.To
+                .SqlDatabase(connectionString, null)
+                .WithScriptsAndCodeEmbeddedInAssembly(
+                    System.Reflection.Assembly.GetExecutingAssembly()
+                )
+                .WithTransaction()
+                .Build();
+            
+            //if the database needs upgdate
+            if(upgraded.IsUpgradeRequired())
+            {
+                upgraded.PerformUpgrade();
+            }
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Backend", Version = "v1" });
+            });
+            services.AddScoped<IDataRepository, DataRepository>();
+
+            services.AddMemoryCache();
+            services.AddSingleton<IQuestionCache, QuestionCache>();
+
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options => {
+                options.Authority = Configuration["Auth0:Autority"];
+                options.Audience = Configuration["Auth0:Audience"];
+            });
+
+            services.AddHttpClient();
+            services.AddAuthorization(options => {
+                options.AddPolicy("MustBeQuestionAuthor", policy => {
+                    policy.Requirements
+                        .Add(new MustBeQuestionAuthorRequirement());
+                });
+            });
+            services.AddScoped<IAuthorizationHandler, MustBeQuestionAuthorHandler>();
+            services.AddHttpContextAccessor();
+            services.AddCors(options => {
+                options.AddPolicy("CorsPolicy", builder => {
+                    builder
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins(Configuration["Frontend"]);
+                });
             });
         }
 
@@ -49,7 +95,7 @@ namespace Backend
 
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
